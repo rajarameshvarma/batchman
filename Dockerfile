@@ -23,10 +23,13 @@ RUN npm run build && mv build/ /app
 COPY ./app /app
 COPY ./migrations /migrations
 COPY Procfile /
+COPY start.sh /
 
 RUN ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
 WORKDIR /
 
 EXPOSE 8000
+
+CMD ["/bin/bash","./start.sh"]
 

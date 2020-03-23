@@ -56,7 +56,7 @@ class ProductionConfig(Config):
     AUTH_METHOD = 'SAML'
 
 class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI= "postgresql://@127.0.0.1/batchman"
+    SQLALCHEMY_DATABASE_URI= "postgresql://postgres:admin@123@127.0.0.1/batchman"
     AUTH_METHOD = 'MOCK'
     MOCK_USERNAME = 'nkrumm'
     MOCK_GROUPS = ['u_labmed_dg_ngs-users', 'u_labmed_dg_molmicro']
