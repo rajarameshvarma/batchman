@@ -30,6 +30,10 @@ def get_jwt_claims():
             "profile": current_app.config["MOCK_GROUPS"],
         }
     else:
+        logger.debug("In auth:")
+        logger.debug(request.headers["x-amzn-oidc-data"].split(".")[1])
+        logger.debug("Decoded: ")
+        logger.debug(base64.b64decode(request.headers["x-amzn-oidc-data"].split(".")[1]).decode("utf-8"))
         d = base64.b64decode(request.headers["x-amzn-oidc-data"].split(".")[1]).decode("utf-8")
         d = json.loads(d)
         logger.debug("JSON:")
