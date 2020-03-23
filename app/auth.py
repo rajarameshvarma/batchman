@@ -9,7 +9,21 @@ from flask import request, current_app, abort, jsonify, make_response
 
 from app import db
 from app.models import WorkflowExecution
+
+import logging 
+
+logging.basicConfig(filename="newfile.log", 
+                    format='%(asctime)s %(message)s', 
+                    filemode='w') 
+logger=logging.getLogger() 
+logger.setLevel(logging.DEBUG) 
+logger.debug("Harmless debug Message") 
+
 def get_jwt_claims():
+    logger.debug("Request")
+    logger.debug(request)
+    logger.debug("Request Headers")
+    logger.debug(request.headers)
     if current_app.config["AUTH_METHOD"] == "MOCK":
         return {
             "username": current_app.config["MOCK_USERNAME"],
@@ -18,6 +32,8 @@ def get_jwt_claims():
     else:
         d = base64.b64decode(request.headers["x-amzn-oidc-data"].split(".")[1]).decode("utf-8")
         d = json.loads(d)
+        logger.debug("JSON:")
+        print(d)
         if "profile" in d:
             d["profile"] = re.findall(r'(u_labmed_[^,\[\]]*)', d["profile"])
         else: 
